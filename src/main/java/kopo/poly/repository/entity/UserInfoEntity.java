@@ -28,7 +28,7 @@ public class UserInfoEntity {
     private String userName;
 
     @NonNull
-    @Column(name = "PASSWORD", length = 1, nullable = false)
+    @Column(name = "PASSWORD",  nullable = false)
     private String password;
 
     @NonNull

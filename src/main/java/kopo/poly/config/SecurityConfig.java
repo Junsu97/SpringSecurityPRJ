@@ -28,11 +28,11 @@ public class SecurityConfig {
         log.info(this.getClass().getName() + ".filterChain Start!!!");
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/notice/v1/**").hasAnyAuthority(UserRole.USER.getRole())
+                        .requestMatchers("/notice/v1/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                         .requestMatchers("/user/v1/**").authenticated()
                         .requestMatchers("/html/user/**").authenticated()
 
-                        .requestMatchers("/admin/**").hasAnyAuthority(UserRole.ADMIN.getRole())
+                        .requestMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
                         .anyRequest().permitAll()
                 )
                 .formLogin(login -> login

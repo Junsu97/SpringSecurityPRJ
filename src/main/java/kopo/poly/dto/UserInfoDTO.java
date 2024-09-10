@@ -9,6 +9,8 @@ import kopo.poly.util.DateUtil;
 import kopo.poly.util.EncryptUtil;
 import lombok.Builder;
 
+import java.io.Serializable;
+
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record UserInfoDTO(
@@ -37,7 +39,7 @@ public record UserInfoDTO(
         String chgDt,
         String roles,
         String existYn
-) {
+) implements Serializable {
         /*
         JPA로 전달받은 entity 결과를 DTO로 변환한기
         이전 실습에서 진행한 Jackson 객체를 통해서도 가능

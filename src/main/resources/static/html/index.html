@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>메인화면</title>
+    <link rel="stylesheet" href="/css/table.css">
+    <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function (){
+            logInfo();
+
+            $("#btnReg").on("click", function (){
+                location.href = "/html/ss/userRegForm.html";
+            })
+
+            $("#btnLogin").on("click", function (){
+                location.href = "/html/ss/login.html";
+            })
+
+            $("#btnUserInfo").on("click", function (){
+                location.href = "/html/user/userInfo.html";
+            })
+        })
+
+        function logInfo() {
+            $.ajax({
+                url: "/login/v1/loginInfo",
+                type: "post",
+                dataType: "JSON",
+            }).then(
+                function (json) {
+                    const result = json.data;
+
+                    const loginId = result.userId;
+
+                    if(loginId === ""){
+                        $("#user").text("로그인되지 않았습니다.");
+                        $("#btnReg").css("display", "block");
+                        $("#btnLogin").css("display", "block");
+                        $("#btnUserInfo").css("display", "none");
+                    } else {
+                        $("#user").text(loginId + "님이 로그인하였습니다.");
+                        $("#btnReg").css("display", "none");
+                        $("#btnLogin").css("display", "none");
+                        $("#btnUserInfo").css("display", "block");
+                    }
+                },
+                function () {
+                    alert("에러가 발생하였습니다. \n다음에 다시 시도하길 바랍니다.");
+                }
+            );
+        }
+    </script>
+</head>
+<body>
+<h2>프로젝트 첫 화면!(메인화면입니다.)</h2>
+<hr/>
+<br/>
+<div class="divTable minimalistBlack">
+    <div class="divTableBody">
+        <div class="divTableRow">
+            <div class="divTableCell" id="user"></div>
+        </div>
+        <div class="divTableRow">
+            <div class="divTableCell">
+                <button id="btnReg" type="button" style="display:none">회원가입(로그인 안되면 보이는 버튼)</button>
+                <button id="btnLogin" type="button" style="display:none">로그인(로그인 안되면 보이는 버튼)</button>
+                <button id="btnUserInfo" type="button" style="display:none">회원정보(로그인 되면 보이는 버튼)</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
